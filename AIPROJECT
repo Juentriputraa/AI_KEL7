@@ -1,0 +1,112 @@
+import matplotlib.pyplot as plt
+
+def determine_pipe_health(corrosion_level, leakage_level, flow_smoothness, pipe_pressure, pipe_age):
+    # Menentukan kondisi kesehatan pipa berdasarkan parameter-parameter
+    
+    # Menentukan tingkat korosi
+    if corrosion_level == 'Baik':
+        corrosion_score = 4
+    elif corrosion_level == 'Cukup Baik':
+        corrosion_score = 3
+    elif corrosion_level == 'Kurang Baik':
+        corrosion_score = 2
+    elif corrosion_level == 'Buruk':
+        corrosion_score = 1
+    
+    # Menentukan tingkat kebocoran
+    if leakage_level == 'Baik':
+        leakage_score = 4
+    elif leakage_level == 'Cukup Baik':
+        leakage_score = 3
+    elif leakage_level == 'Kurang Baik':
+        leakage_score = 2
+    elif leakage_level == 'Buruk':
+        leakage_score = 1
+    
+    # Menentukan kehalusan aliran
+    if flow_smoothness == 'Baik':
+        flow_score = 4
+    elif flow_smoothness == 'Cukup Baik':
+        flow_score = 3
+    elif flow_smoothness == 'Kurang Baik':
+        flow_score = 2
+    elif flow_smoothness == 'Buruk':
+        flow_score = 1
+    
+    # Menentukan tekanan pipa
+    if pipe_pressure == 'Baik':
+        pressure_score = 4
+    elif pipe_pressure == 'Cukup Baik':
+        pressure_score = 3
+    elif pipe_pressure == 'Kurang Baik':
+        pressure_score = 2
+    elif pipe_pressure == 'Buruk':
+        pressure_score = 1
+    
+    # Menentukan umur pipa
+    if pipe_age == 'Baik':
+        age_score = 4
+    elif pipe_age == 'Cukup Baik':
+        age_score = 3
+    elif pipe_age == 'Kurang Baik':
+        age_score = 2
+    elif pipe_age == 'Buruk':
+        age_score = 1
+    
+    # Menghitung skor total kesehatan pipa
+    pipe_health_score = (corrosion_score + leakage_score + flow_score + pressure_score + age_score) / 5
+    
+    # Menentukan kondisi kesehatan pipa
+    if pipe_health_score >= 3.5:
+        pipe_health = 'Sehat'
+    else:
+        pipe_health = 'Tidak Sehat'
+    
+    return pipe_health
+
+
+def plot_pipe_health(data):
+    # Mengambil nilai parameter dari data
+    corrosion_level = data['Tingkat Korosi']
+    leakage_level = data['Tingkat Kebocoran']
+    flow_smoothness = data['Kehalusan Aliran']
+    pipe_pressure = data['Tekanan Pipa']
+    pipe_age = data['Umur Pipa']
+    
+    # Membuat daftar parameter dan nilai
+    parameters = ['Tingkat Korosi', 'Tingkat Kebocoran', 'Kehalusan Aliran', 'Tekanan Pipa', 'Umur Pipa']
+    values = [corrosion_level, leakage_level, flow_smoothness, pipe_pressure, pipe_age]
+    
+    # Mengatur posisi x pada sumbu
+    x = range(len(parameters))
+    
+    # Membuat plot batang
+    plt.bar(x, values)
+    
+    # Menambahkan label pada sumbu x
+    plt.xticks(x, parameters)
+    
+    # Menambahkan judul dan label pada sumbu y
+    plt.title('Kondisi Pipa')
+    plt.ylabel('Nilai')
+    
+    # Menampilkan grafik
+    plt.show()
+
+
+# Menginput data dari pengguna
+data = {}
+data['Tingkat Korosi'] = input('Masukkan tingkat korosi pipa: ')
+data['Tingkat Kebocoran'] = input('Masukkan tingkat kebocoran pipa: ')
+data['Kehalusan Aliran'] = input('Masukkan kehalusan aliran pipa: ')
+data['Tekanan Pipa'] = input('Masukkan tekanan pipa: ')
+data['Umur Pipa'] = input('Masukkan umur pipa: ')
+
+# Menentukan kondisi kesehatan pipa berdasarkan data yang diinputkan
+pipe_health = determine_pipe_health(data['Tingkat Korosi'], data['Tingkat Kebocoran'], data['Kehalusan Aliran'], data['Tekanan Pipa'], data['Umur Pipa'])
+
+# Menampilkan grafik
+plot_pipe_health(data)
+
+# Menampilkan kondisi kesehatan pipa
+print('Kondisi kesehatan pipa:', pipe_health)
